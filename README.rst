@@ -122,6 +122,28 @@ Standard **central** server::
  S01-local.conf
  S01-remote.conf
 
+SYNTAX HINTS
+============
+Always use ``cstr()`` function if comparing *IP* address with string,
+for instance the following code **will result in unpredictable result**::
+
+ if $fromhost-ip startswith "10.0." then {
+     stop
+ }
+
+The **correct way** to express the intended condition is the following::
+
+ if cstr($fromhost-ip) startswith "10.0." then {
+     stop
+ }
+
+Also be aware of the ``not`` infix operator! Always enclose the desired
+expression to be negated in parentheses::
+
+ if not(cstr($fromhost-ip) == "127.0.0.1") then {
+     stop
+ } 
+
 SEE ALSO
 ========
 - ``rsyslog.conf(5)``
