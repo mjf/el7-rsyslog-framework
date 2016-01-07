@@ -102,8 +102,8 @@ Standard **central** server::
  S01-imuxsock-journal.conf
 
  rsyslog.d/modules.d:
+ K99-imfile.conf
  K99-imudp.conf
- S01-imfile.conf
  S01-imjournal.conf
  S01-imklog.conf
  S01-imtcp.conf
@@ -121,6 +121,39 @@ Standard **central** server::
  K90-remote-nginx.conf
  S01-local.conf
  S01-remote.conf
+
+Standard **forwarding** server::
+
+ rsyslog.d/globals.d:
+ S01-common.conf
+
+ rsyslog.d/inputs.d:
+ K30-nginx.conf
+ K99-imtcp.conf
+ K99-imudp.conf
+ S01-imuxsock-journal.conf
+
+ rsyslog.d/modules.d:
+ K99-imfile.conf
+ K99-imtcp.conf
+ K99-imudp.conf
+ S01-imjournal.conf
+ S01-imklog.conf
+ S01-imuxsock.conf
+
+ rsyslog.d/rules.d:
+ K01-fallback-remote.conf
+ K70-nginx-local.conf
+ K70-nginx-remote.conf
+ K99-forward-udp.conf
+ S01-forward-tcp.conf
+ S99-fallback-local.conf
+
+ rsyslog.d/templates.d:
+ K90-nginx-local.conf
+ K90-nginx-remote.conf
+ K99-remote.conf
+ S01-local.conf
 
 SYNTAX HINTS
 ============
