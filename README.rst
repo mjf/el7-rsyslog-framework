@@ -8,7 +8,7 @@ Configuration "framework" written in pure *RainerScript*
 
 :Author: `Matouš Jan Fialka <mjf@mjf.cz>`_
 :Version: 0.3
-:Date: 2016-01-07
+:Date: 2016-01-08
 :Manual section: 8
 :Manual group: Linux System Administration
 
