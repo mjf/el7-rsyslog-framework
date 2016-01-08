@@ -58,102 +58,29 @@ common convention, well-known from the former system-wide *initscripts*.
 
 EXAMPLES
 ========
-Standard **non-forwarding** server (this is the default)::
+Configure server ``server.domain.tld`` to *TCP* forward all *Syslog*
+messages to central server ``syslog.domain.tld``::
 
- rsyslog.d/globals.d:
- S01-common.conf
+ $ cd /path/to/repository
+ $ make
+ $ sftp root@server.domain.tld:/tmp
+ sftp> put el7-rsyslog-framework.tar.gz
+ sftp> quit
+ $ make clean
+ $ ssh root@server.domain.tld
+ ssh# cd /etc
+ ssh# rm -rf rsyslog.*
+ ssh# tar xzvf /tmp/el7-rsyslog-framework.tar.gz
+ ssh# restorecon -R -F rsyslog.*
+ ssh# cd rsyslog.d/
+ ssh# mv rules.d/K99-forward-tcp.conf rules.d/S01-forward-tcp.conf
+ ssh# sed -i 's/<remote-host>/syslog.domain.tld/' rules.d/S01-forward-tcp.conf
+ ssh# rm /tmp/el7-rsyslog-framework.tar.gz
+ ssh# systemctl restart rsyslog
+ ssh# exit
 
- rsyslog.d/inputs.d:
- K30-nginx.conf
- K99-imtcp.conf
- K99-imudp.conf
- S01-imuxsock-journal.conf
-
- rsyslog.d/modules.d:
- K99-imfile.conf
- K99-imtcp.conf
- K99-imudp.conf
- S01-imjournal.conf
- S01-imklog.conf
- S01-imuxsock.conf
-
- rsyslog.d/rules.d:
- K01-fallback-remote.conf
- K70-nginx.conf
- K99-forward-tcp.conf
- K99-forward-udp.conf
- S99-fallback-local.conf
-
- rsyslog.d/templates.d:
- K90-nginx-local.conf
- K90-nginx-remote.conf
- K99-remote.conf
- S01-local.conf
-
-Standard **central** server::
-
- rsyslog.d/globals.d:
- S01-common.conf
-
- rsyslog.d/inputs.d:
- K30-nginx.conf
- K99-imudp.conf
- S01-imtcp.conf
- S01-imuxsock-journal.conf
-
- rsyslog.d/modules.d:
- K99-imfile.conf
- K99-imudp.conf
- S01-imjournal.conf
- S01-imklog.conf
- S01-imtcp.conf
- S01-imuxsock.conf
-
- rsyslog.d/rules.d:
- K70-nginx.conf
- K99-forward-tcp.conf
- K99-forward-udp.conf
- S99-fallback-local.conf
- S99-fallback-remote.conf
-
- rsyslog.d/templates.d:
- K90-local-nginx.conf
- K90-remote-nginx.conf
- S01-local.conf
- S01-remote.conf
-
-Standard **forwarding** server::
-
- rsyslog.d/globals.d:
- S01-common.conf
-
- rsyslog.d/inputs.d:
- K30-nginx.conf
- K99-imtcp.conf
- K99-imudp.conf
- S01-imuxsock-journal.conf
-
- rsyslog.d/modules.d:
- K99-imfile.conf
- K99-imtcp.conf
- K99-imudp.conf
- S01-imjournal.conf
- S01-imklog.conf
- S01-imuxsock.conf
-
- rsyslog.d/rules.d:
- K01-fallback-remote.conf
- K70-nginx-local.conf
- K70-nginx-remote.conf
- K99-forward-udp.conf
- S01-forward-tcp.conf
- S99-fallback-local.conf
-
- rsyslog.d/templates.d:
- K90-nginx-local.conf
- K90-nginx-remote.conf
- K99-remote.conf
- S01-local.conf
+The only change, as seen above, is enabling the *TCP* forwarding
+rules and to set the server ``syslog.domain.tld``. Easy.
 
 SYNTAX HINTS
 ============
