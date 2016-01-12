@@ -1,7 +1,7 @@
 TARBALL	?= "el7-rsyslog-framework.tar.gz"
 MANPAGE ?= "el7-rsyslog-framework.8"
 
-all:	man dist
+all:	dist
 
 man:
 	@ rst2man README.rst >$(MANPAGE)
