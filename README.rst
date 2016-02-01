@@ -7,7 +7,7 @@ Configuration "framework" written in pure *RainerScript*
 --------------------------------------------------------
 
 :Author: `Matouš Jan Fialka <mjf@mjf.cz>`_
-:Version: 0.3
+:Version: 0.4
 :Date: 2016-01-08
 :Manual section: 8
 :Manual group: Linux System Administration
@@ -26,7 +26,8 @@ caveats arise. To point out the least obvious:
 
 * you **can not** use ``imrelp`` module together with *rulesets*,
 * you **must** be aware of precise form of the *RainerScript*,
-* you **should not** trust documentation which is fairly incomplete.
+* you **should not** trust documentation which is fairly incomplete,
+* you **must not** use ``controlCharacters = "escape"`` for templates.
 
 Testing your configuration before you reload or restart *Rsyslog* is
 thus highly recommended! If still in doubts: "Read the source, Luke!"
