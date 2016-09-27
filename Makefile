@@ -7,7 +7,7 @@ man:
 	@ rst2man README.rst >$(MANPAGE)
 
 dist:
-	@ tar czvf $(TARBALL) --owner=root --group=root --mode=0600 rsyslog.* >/dev/null
+	@ tar czvf $(TARBALL) --owner=root --group=root --mode=0600 etc >/dev/null
 
 clean:	
 	@ rm -f $(TARBALL)
